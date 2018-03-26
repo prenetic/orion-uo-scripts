@@ -1,55 +1,38 @@
-function FastLootRPG()
-{
-	//1 - loot all; 0 - loot prioritized items
-	var all = 0;
-
-	//1 - ignore list, 0 - do not ignore
-	var clear = 1;
-
-	//1 - use skinning
-	var useSkining = 1;
+function FastLootRPG() {
+	var all = 0; //1 - loot all; 0 - loot prioritized items
+	var clear = 1; //1 - ignore list, 0 - do not ignore
+	var useSkining = 1; //1 - use skinning
 
 	FastLoot('Loot', all, clear, useSkining);
 }
-function FastLootPVP()
-{
 
+function FastLootPVP() {
 	var all = 0;
-
-
 	var clear = 1;
-
-
 	var useSkining = 0;
 
 	FastLoot('Loot2', all, clear, useSkining);
 }
 
-function FastLoot(listName, all, clear, useSkining)
-{
+function FastLoot(listName, all, clear, useSkining) {
 	var corpse = FindCorpse();
 
-	if (corpse == null)
-	{
+	if (corpse == null) {
 		Orion.Print('CORPS NOT FOUND!');
 		Orion.Print('CORPS NOT FOUND!');
 		Orion.Print('CORPS NOT FOUND!');
 		Orion.Ignore('corpse', false);
-	}
-	else
-	{
+	} else {
 		Orion.AddObject('corpse', corpse.Serial());
 		LootLag();
 		Loot(listName, all, clear, useSkining);
 	}
 }
 
-function FindCorpse()
-{
+function FindCorpse() {
 	var list = Orion.FindType('0x2006|0x0ECA|0x0E40|0x0E41', '-1', ground, 'fast', '2');
 
-	if (list.length)
-	{
+	if (list.length) {
 		Orion.UseObject(list[0]);
 		return Orion.FindObject(list[0]);
 	}
@@ -57,18 +40,15 @@ function FindCorpse()
 	return null;
 }
 
-function LootLag()
-{
+function LootLag() {
 	var timer = Orion.Now() + 300;
 
 	while (!Orion.FindType('-1', '-1', 'corpse').length && timer > Orion.Now())
 		Orion.Wait(50);
 }
 
-function Loot(listName, all, clear, useSkining)
-{
+function Loot(listName, all, clear, useSkining) {
 	var bag = '0x0E75';
-
 	var lootBagList = Orion.FindType(bag);
 
 	if (lootBagList.length)
@@ -78,8 +58,7 @@ function Loot(listName, all, clear, useSkining)
 
 	LootByFindList(listName);
 
-	if (all == 1)
-	{
+	if (all == 1) {
 		if (clear == 1)
 			Orion.UseIgnoreList('ignoreLoot');
 		else
@@ -95,8 +74,7 @@ function Loot(listName, all, clear, useSkining)
 		Skining();
 }
 
-function Skining()
-{
+function Skining() {
 	Orion.WaitTargetObject('corpse');
 	Orion.UseType('0x0EC4');
 	Orion.Wait(500);
@@ -104,13 +82,11 @@ function Skining()
 	LootAll();
 }
 
-function LootItems(list)
-{
+function LootItems(list) {
 	if (!list.length)
 		return false;
 
-	for (var i = 0; i < list.length; i++)
-	{
+	for (var i = 0; i < list.length; i++) {
 		if (Orion.GetDistance('corpse') > 2)
 			return false;
 
@@ -121,14 +97,12 @@ function LootItems(list)
 	return true;
 }
 
-function LootByFindList(listName)
-{
+function LootByFindList(listName) {
 	while (LootItems(Orion.FindList(listName, 'corpse')))
 		Orion.Wait(50);
 }
 
-function LootAll()
-{
+function LootAll() {
 	while (LootItems(Orion.FindType('-1', '-1', 'corpse')))
 		Orion.Wait(50);
 }
