@@ -1,0 +1,9 @@
+function trainHiding() {
+    var actionDelay = 10250;
+    var skillDesired = 1000;
+
+    while (Orion.SkillValue('hiding', 'real') < skillDesired) {
+        Orion.UseSkill('hiding');
+        Orion.Wait(actionDelay);
+    }
+}
