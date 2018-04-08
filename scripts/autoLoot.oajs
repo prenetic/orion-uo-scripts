@@ -1,8 +1,8 @@
-var lootList = 'loot'; // OA list of items to loot
-var lootRadius = 2; // maximum looting radius
+const lootList = 'loot'; // OA list of items to loot
+const lootRadius = 2; // maximum looting radius
+var lootCount = 0;
 
 function autoLoot() {
-    var lootCount = 0;
 
     scavenge();
     loot();
