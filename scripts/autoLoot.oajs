@@ -17,11 +17,12 @@ function loot() {
     var corpseIgnore = 'corpses'; // OA list of corpses to ignore
     var corpseList = 'corpses'; // OA list of corpses to search
 
+    Orion.UseIgnoreList(corpseList);
     var corpses = Orion.FindList(corpseList, ground, '', lootRadius);
     for (var i = 0; i < corpses.length; i++) {
         const corpse = corpses[i];
 
-        if (!criminalCheck()) {
+        if (!criminalCheck(corpse)) {
             Orion.Print('INNOCENT');
             var queue = Orion.FindList(lootList, corpse);
             moveToBackpack(queue);
@@ -42,7 +43,7 @@ function moveToBackpack(queue) {
     }
 }
 
-function criminalCheck(dummy) {
+function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
     Orion.Wait(500);
