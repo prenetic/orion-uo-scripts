@@ -23,12 +23,10 @@ function loot() {
         const corpse = corpses[i];
 
         if (!criminalCheck(corpse)) {
-            Orion.Print('INNOCENT');
             var queue = Orion.FindList(lootList, corpse);
             moveToBackpack(queue);
             Orion.AddIgnoreListObject(corpseIgnore, corpse);
         } else {
-            Orion.Print('CRIMINAL');
             Orion.AddIgnoreListObject(corpseIgnore, corpse);
         }
     }
