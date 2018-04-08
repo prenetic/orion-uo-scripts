@@ -2,8 +2,15 @@ var lootList = 'loot'; // OA list of items to loot
 var lootRadius = 2; // maximum looting radius
 
 function autoLoot() {
+    var lootCount = 0;
+
     scavenge();
     loot();
+    
+    if (!lootCount == 1)
+        Orion.Print('Finished looting ' + lootCount + ' items.');
+    else
+        Orion.Print('Finished looting ' + lootCount + ' item.');
 }
 
 function scavenge() {
@@ -37,14 +44,15 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        Orion.Wait(Orion.Random(800, 1200));
+        Orion.Wait(Orion.Random(900,1100));
+        lootCount++;
     }
 }
 
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(500);
+    Orion.Wait(Orion.Random(400,600));
     if (Orion.InJournal('Looting this corpse will be a criminal act!')) {
         return true;
     } else {
