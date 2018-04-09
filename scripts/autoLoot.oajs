@@ -45,7 +45,7 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        Orion.Wait(Orion.Random(900, 1100));
+        Orion.Wait(Orion.Random(1000, 1250));
         itemCount++;
     }
 }
@@ -53,7 +53,7 @@ function moveToBackpack(queue) {
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(Orion.Random(400, 600));
+    Orion.Wait(Orion.Random(500, 750));
     if (Orion.InJournal('Looting this corpse will be a criminal act!')) {
         return true;
     } else {
