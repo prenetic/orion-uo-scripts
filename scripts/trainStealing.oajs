@@ -1,16 +1,14 @@
 function trainStealingDip() {
-    var actionDelay = 3250;
-    var failureMessage = 'You carelessly bump the dip|You have to wait until it stops swinging';
+    const skillValueGoal = 1000;
     var serial = 0x40e4f133;
-    var serverPing = 50;
-    var skillDesired = 1000;
+    var useObjectDelay = 3250;
 
-    while (Orion.SkillValue('stealing', 'real') < skillDesired) {
+    while (Orion.SkillValue('stealing', 'real') < skillValueGoal) {
         Orion.ClearJournal();
         Orion.UseObject(serial);
-        Orion.Wait(serverPing); // allow time for server response
-        if (Orion.InJournal(failureMessage)) {
-            Orion.Wait(actionDelay);
+        Orion.Wait(250);
+        if (Orion.InJournal('You carelessly bump the dip|You have to wait until it stops swinging')) {
+            Orion.Wait(useObjectDelay);
         }
     }
 }
