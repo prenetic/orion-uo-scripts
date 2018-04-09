@@ -1,19 +1,18 @@
 function trainStealth() {
-    var actionDelay = 10250;
-    var hidingMin = 800;
-    var skillDesired = 1000;
+    const skillValueGoal = 1000;
+    const useSkillDelay = 10250;
 
-    while (Orion.SkillValue('hiding', 'real') < hidingMin) {
+    while (Orion.SkillValue('hiding', 'real') < 800) {
         Orion.UseSkill('hiding');
-        Orion.Wait(actionDelay);
+        Orion.Wait(useSkillDelay);
     }
 
-    while (Orion.SkillValue('stealth', 'real') < skillDesired) {
+    while (Orion.SkillValue('stealth', 'real') < skillValueGoal) {
         if (!Player.Hidden()) {
             Orion.UseSkill('hiding');
-            Orion.Wait(actionDelay);
+            Orion.Wait(useSkillDelay);
         }
         Orion.UseSkill('stealth');
-        Orion.Wait(actionDelay);
+        Orion.Wait(useSkillDelay);
     }
 }
