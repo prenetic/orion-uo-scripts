@@ -1,6 +1,8 @@
 function trainMagery() {
-    const skillValueGoal = 1001;
+    const castSpellDelay = 3000;
+    const skillValueGoal = 1000;
     const target = Player.Serial();
+    const useSkillDelay = 10250;
     var skillValue = Orion.SkillValue('magery', 'real');
 
     circuitBreaker(skillValue);
@@ -14,21 +16,21 @@ function trainMagery() {
             var spell = 'Mana Vampire';
 
         while (Player.Mana() < 40) {
-            var meditating = 0;
-            while (meditating == 0) {
+            var meditating = false;
+            while (!meditating) {
                 Orion.ClearJournal();
                 Orion.UseSkill('meditation');
                 Orion.Wait(250);
                 if (Orion.InJournal('You cannot focus your concentration|You stop meditating'))
-                    Orion.Wait(10250);
+                    Orion.Wait(useSkillDelay);
                 else
-                    meditating = 1;
+                    var meditating = true;
             }
             Orion.WaitJournal('You are at peace', 0, Orion.Now() + 60000);
         }
 
         Orion.Cast(spell, target);
-        Orion.Wait(3000);
+        Orion.Wait(castSpellDelay);
 
         skillValue = Orion.SkillValue('magery', 'real');
     }
