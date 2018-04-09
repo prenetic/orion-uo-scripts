@@ -1,36 +1,37 @@
-const lootList = 'loot'; // OA list of items to loot
-const lootRadius = 2; // maximum looting radius
-var lootCount = 0;
+const itemList = 'loot'; // OA list of items to loot
+const maxRadius = 2; // maximum looting radius
+var itemCount = 0;
 
 function autoLoot() {
-
     scavenge();
     loot();
-    
-    if (!lootCount == 1)
-        Orion.Print('Finished looting ' + lootCount + ' items.');
+
+    if (!itemCount == 1)
+        Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
     else
-        Orion.Print('Finished looting ' + lootCount + ' item.');
+        Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
 }
 
 function scavenge() {
-    var queue = Orion.FindList(lootList, ground, '', lootRadius)
+    var queue = Orion.FindList(itemList, ground, '', maxRadius)
     if (!queue.length) return;
 
     moveToBackpack(queue);
 }
 
 function loot() {
-    var corpseIgnore = 'corpses'; // OA list of corpses to ignore
-    var corpseList = 'corpses'; // OA list of corpses to search
+    const corpseIgnore = 'corpses'; // OA list of corpses to ignore
+    const corpseList = 'corpses'; // OA list of corpses to search
 
-    Orion.UseIgnoreList(corpseList);
-    var corpses = Orion.FindList(corpseList, ground, '', lootRadius);
+    Orion.UseIgnoreList(corpseIgnore);
+    var corpses = Orion.FindList(corpseList, ground, '', maxRadius);
+    if (!corpses.length) return;
+
     for (var i = 0; i < corpses.length; i++) {
         const corpse = corpses[i];
 
         if (!criminalCheck(corpse)) {
-            var queue = Orion.FindList(lootList, corpse);
+            var queue = Orion.FindList(itemList, corpse);
             moveToBackpack(queue);
             Orion.AddIgnoreListObject(corpseIgnore, corpse);
         } else {
@@ -44,15 +45,15 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        Orion.Wait(Orion.Random(900,1100));
-        lootCount++;
+        Orion.Wait(Orion.Random(900, 1100));
+        itemCount++;
     }
 }
 
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(Orion.Random(400,600));
+    Orion.Wait(Orion.Random(400, 600));
     if (Orion.InJournal('Looting this corpse will be a criminal act!')) {
         return true;
     } else {
