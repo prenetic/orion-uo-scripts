@@ -54,7 +54,7 @@ function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
     Orion.Wait(Orion.Random(500, 750));
-    if (Orion.InJournal('Looting this corpse will be a criminal act!')) {
+    if (Orion.InJournal('Looting this corpse will be a criminal act!|You have disabled opening innocent corpses')) {
         return true;
     } else {
         return false;
