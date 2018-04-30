@@ -15,15 +15,15 @@ function drinkPotion(potionGraphic) {
     }
 }
 
-function GreaterAgility() {
+function greaterAgility() {
     drinkPotion('0x0F08');
 }
 
-function GreaterCure() {
+function greaterCure() {
     drinkPotion('0x0F07');
 }
 
-function GreaterHeal() {
+function greaterHeal() {
     drinkPotion('0x0F0C');
 }        
 
