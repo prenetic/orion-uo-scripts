@@ -1,0 +1,36 @@
+function drinkPotion(potionGraphic) {
+    var delay = 500;
+
+    if(Orion.ObjAtLayer('RightHand')) {
+        var weapon = Orion.ObjAtLayer('RightHand').Serial();
+        Orion.Unequip('RightHand');
+        Orion.Wait(delay);
+    }
+
+    Orion.UseType(potionGraphic);
+
+    if(weapon) {
+        Orion.Wait(delay);
+        Orion.Equip(weapon);
+    }
+}
+
+function GreaterAgility() {
+    drinkPotion('0x0F08');
+}
+
+function GreaterCure() {
+    drinkPotion('0x0F07');
+}
+
+function GreaterHeal() {
+    drinkPotion('0x0F0C');
+}        
+
+function greaterRefreshment() {
+    drinkPotion('0x0F0B');
+}
+
+function greaterStrength() {
+    drinkPotion('0x0F09');
+}
