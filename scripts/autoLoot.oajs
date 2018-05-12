@@ -1,4 +1,3 @@
-const delay = 500; // server-imposed delay between actions
 const itemList = 'loot'; // OA list of items to loot
 const maxRadius = 2; // maximum looting radius
 const ping = 100; // round-trip latency between client and server
@@ -8,34 +7,34 @@ scavenge();
 loot();
 
 if (!itemCount == 1)
-    Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
+Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
 else
-    Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
+Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
 
 function scavenge() {
     var queue = Orion.FindList(itemList, ground, '', maxRadius)
-
+    
     if (queue.length <= 0)
-        return;
+    return;
     else if (!queue.length == 1)
-        Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' items.');
+    Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' items.');
     else
-        Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' item.');
-
+    Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' item.');
+    
     moveToBackpack(queue);
 }
 
 function loot() {
     const corpseIgnore = 'corpses'; // OA list of corpses to ignore
     const corpseList = 'corpses'; // OA list of corpses to search
-
+    
     Orion.UseIgnoreList(corpseIgnore);
     var corpses = Orion.FindList(corpseList, ground, '', maxRadius);
     if (corpses.length <= 0) return;
-
+    
     for (var i = 0; i < corpses.length; i++) {
         const corpse = corpses[i];
-
+        
         if (!criminalCheck(corpse)) {
             var queue = Orion.FindList(itemList, corpse);
             moveToBackpack(queue);
@@ -47,12 +46,14 @@ function loot() {
 }
 
 function moveToBackpack(queue) {
+    const delay = 500; // server-imposed delay between actions
+
     for (var i = 0; i < queue.length; i++) {
         const item = queue[i];
-
+        
         Orion.MoveItem(item);
         if (i < queue.length - 1)
-            Orion.Wait(delay + ping);
+        Orion.Wait(delay + ping);
         itemCount++;
     }
 }
