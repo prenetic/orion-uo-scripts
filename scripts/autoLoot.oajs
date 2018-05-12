@@ -1,4 +1,5 @@
 'use strict';
+const delay = 500; // server-imposed delay between actions
 const itemList = 'loot'; // OA list of items to loot
 const maxRadius = 2; // maximum looting radius
 const ping = 100; // round-trip latency between client and server
@@ -41,7 +42,6 @@ function loot() {
 }
 
 function moveToBackpack(queue) {
-    var delay = 500; // server-imposed delay between actions
 
     for (var i = 0; i < queue.length; i++) {
         const item = queue[i];
@@ -56,7 +56,7 @@ function moveToBackpack(queue) {
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(ping);
+    Orion.Wait(delay + ping);
     if (Orion.InJournal('Looting this corpse will be a criminal act!|You have disabled opening innocent corpses')) {
         return true;
     } else {
