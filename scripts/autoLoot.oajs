@@ -43,7 +43,7 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        Orion.Wait(Orion.Random(1000, 1250));
+        Orion.Wait(1000);
         itemCount++;
     }
 }
@@ -51,7 +51,7 @@ function moveToBackpack(queue) {
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(Orion.Random(500, 750));
+    Orion.Wait(500);
     if (Orion.InJournal('Looting this corpse will be a criminal act!|You have disabled opening innocent corpses')) {
         return true;
     } else {
