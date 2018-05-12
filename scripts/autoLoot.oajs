@@ -10,7 +10,7 @@ loot();
 if (itemCount > 1)
     Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
 else if (itemCount == 1)
-    Orion.Print('[Info] autoLoot: Acquired' + itemCount + ' item.');
+    Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
 
 function scavenge() {
     var queue = Orion.FindList(itemList, ground, '', maxRadius)
