@@ -2,15 +2,13 @@ const itemList = 'loot'; // OA list of items to loot
 const maxRadius = 2; // maximum looting radius
 var itemCount = 0;
 
-function autoLoot() {
-    scavenge();
-    loot();
+scavenge();
+loot();
 
-    if (!itemCount == 1)
-        Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
-    else
-        Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
-}
+if (!itemCount == 1)
+    Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' items.');
+else
+    Orion.Print('[Info] autoLoot: Acquired ' + itemCount + ' item.');
 
 function scavenge() {
     var queue = Orion.FindList(itemList, ground, '', maxRadius)
