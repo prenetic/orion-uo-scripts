@@ -38,11 +38,12 @@ function loot() {
         } else {
             Orion.AddIgnoreListObject(corpseIgnore, corpse);
         }
+        if (i < corpse.length - 1)
+            Orion.Wait(delay + ping);
     }
 }
 
 function moveToBackpack(queue) {
-
     for (var i = 0; i < queue.length; i++) {
         const item = queue[i];
 
@@ -56,7 +57,7 @@ function moveToBackpack(queue) {
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(delay + ping);
+    Orion.Wait(ping);
     if (Orion.InJournal('Looting this corpse will be a criminal act!|You have disabled opening innocent corpses')) {
         return true;
     } else {
