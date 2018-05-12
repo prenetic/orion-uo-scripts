@@ -57,7 +57,7 @@ function moveToBackpack(queue) {
 function criminalCheck(corpse) {
     Orion.ClearJournal();
     Orion.OpenContainer(corpse);
-    Orion.Wait(ping);
+    Orion.Wait(delay + ping);
     if (Orion.InJournal('Looting this corpse will be a criminal act!|You have disabled opening innocent corpses')) {
         return true;
     } else {
