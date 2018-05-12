@@ -43,7 +43,8 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        Orion.Wait(1000);
+        if(i < queue.length - 1)
+            Orion.Wait(1000);
         itemCount++;
     }
 }
