@@ -1,16 +1,21 @@
 function drinkPotion(potionGraphic) {
-    var delay = 500;
+    var delay = 500; // server-imposed delay between actions
+    var ping = 100; // round-trip latency between client and server
 
-    if(Orion.ObjAtLayer('RightHand')) {
+    if (Orion.ObjAtLayer('LeftHand') && Orion.ObjAtLayer('RightHand')) {
         var weapon = Orion.ObjAtLayer('RightHand').Serial();
         Orion.Unequip('RightHand');
-        Orion.Wait(delay);
+        Orion.Wait(delay + ping);
+    } else if (Orion.ObjAtLayer('LeftHand') && (!Orion.ObjAtLayer('RightHand'))) {
+        var weapon = Orion.ObjAtLayer('LeftHand').Serial();
+        Orion.Unequip('LeftHand');
+        Orion.Wait(delay + ping);
     }
 
     Orion.UseType(potionGraphic);
 
-    if(weapon) {
-        Orion.Wait(delay);
+    if (weapon) {
+        Orion.Wait(delay + ping);
         Orion.Equip(weapon);
     }
 }
@@ -25,7 +30,7 @@ function greaterCure() {
 
 function greaterHeal() {
     drinkPotion('0x0F0C');
-}        
+}
 
 function greaterRefreshment() {
     drinkPotion('0x0F0B');
