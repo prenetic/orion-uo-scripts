@@ -14,7 +14,13 @@ else
 
 function scavenge() {
     var queue = Orion.FindList(itemList, ground, '', maxRadius)
-    if (queue.length <= 0) return;
+
+    if (queue.length <= 0)
+        return;
+    else if (!queue.length == 1)
+        Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' items.');
+    else
+        Orion.Print('[Info] autoLoot: Scavenging ' + queue.length + ' item.');
 
     moveToBackpack(queue);
 }
@@ -25,7 +31,7 @@ function loot() {
 
     Orion.UseIgnoreList(corpseIgnore);
     var corpses = Orion.FindList(corpseList, ground, '', maxRadius);
-    if (!corpses.length) return;
+    if (corpses.length <= 0) return;
 
     for (var i = 0; i < corpses.length; i++) {
         const corpse = corpses[i];
@@ -45,7 +51,7 @@ function moveToBackpack(queue) {
         const item = queue[i];
 
         Orion.MoveItem(item);
-        if(i < queue.length - 1)
+        if (i < queue.length - 1)
             Orion.Wait(delay + ping);
         itemCount++;
     }
