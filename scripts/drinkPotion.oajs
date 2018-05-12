@@ -1,3 +1,5 @@
+'use strict';
+
 function drinkPotion(potionGraphic) {
     var delay = 500; // server-imposed delay between actions
     var ping = 100; // round-trip latency between client and server

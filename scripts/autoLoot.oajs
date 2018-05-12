@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const itemList = 'loot'; // OA list of items to loot
 const maxRadius = 2; // maximum looting radius
 const ping = 100; // round-trip latency between client and server
